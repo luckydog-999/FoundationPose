@@ -1,31 +1,28 @@
 import socket
+import json
 
-# 配置
-HOST_IP = '192.168.1.10'  # 本机 IP (接收端)
-PORT = 8888               # 任意端口，只要两边一致且未被占用
+# 替换为您 Qt 程序所在电脑的 IP 地址
+HOST = '192.168.1.20' 
+PORT = 8888
 
-# 创建 TCP Socket
-server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect((HOST, PORT))
+print("Connected to Robot Control PC")
 
-try:
-    # 绑定 IP 和端口
-    server_socket.bind((HOST_IP, PORT))
-    server_socket.listen(1)
-    print(f"正在监听 {HOST_IP}:{PORT}，等待发送端连接...")
-
-    # 接受连接
-    conn, addr = server_socket.accept()
-    print(f"连接成功！对方地址: {addr}")
-
-    with conn:
-        while True:
-            data = conn.recv(1024) # 每次接收 1024 字节
-            if not data:
-                print("对方断开了连接")
-                break
-            print(f"收到消息: {data.decode('utf-8')}")
-
-except Exception as e:
-    print(f"发生错误: {e}")
-finally:
-    server_socket.close()
+while True:
+    data = s.recv(1024)
+    if not data:
+        break
+    
+    try:
+        # 解析 JSON
+        json_str = data.decode('utf-8').strip()
+        msg = json.loads(json_str)
+        
+        if msg.get("command") == "robot_flange_pose":
+            pose = msg["pose"]
+            print(f"收到法兰位姿: X={pose[0]}, Y={pose[1]}, Z={pose[2]}...")
+            # 在这里进行您的手眼标定复合运算...
+            
+    except Exception as e:
+        print("Data error:", e)
