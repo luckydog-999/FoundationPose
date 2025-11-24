@@ -3,7 +3,7 @@ import json
 
 # 替换为您 Qt 程序所在电脑的 IP 地址
 HOST = '192.168.1.20' 
-PORT = 8888
+PORT = 6666
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((HOST, PORT))
