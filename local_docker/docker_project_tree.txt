@@ -1,0 +1,17 @@
+D:\your_workspace\  <-- 这就是你挂载的根目录
+│
+├── docker_server.py      
+├── host_client.py        
+├── estimater.py          
+├── datareader.py         
+│
+├── my_utils/             
+│   ├── __init__.py
+│   ├── socket_utils.py
+│   └── math_utils.py
+│
+└── demo_data/            
+    ├── passive/
+    │   └── mesh/passive.obj
+    └── insert/
+        └── mesh/insert.obj
