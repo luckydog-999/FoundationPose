@@ -30,8 +30,9 @@ services:
     # 【核心修改 4】环境变量精简
     # 不需要 DISPLAY 了，因为 Docker 现在只算数，不弹窗
     environment:
-      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility,graphics,video
       - NVIDIA_VISIBLE_DEVICES=all
+      - EGL_PLATFORM=surfaceless
       
     # GPU 资源调度
     deploy:
