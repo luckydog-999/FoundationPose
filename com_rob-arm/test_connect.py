@@ -1,3 +1,5 @@
+# 测试与远程 Qt 程序通信的简单客户端
+
 import socket
 import json
 
